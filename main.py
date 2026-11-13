@@ -9,8 +9,8 @@ set_website_framed(False)
 set_site_information(
         author="Eko Askew",
         description="My site is a win simulator for soccer games. The user inputs information about the teams and the site outputs the simulated match",
-        sources="I build it with help from an LLM.",
-        planning="",
+        sources=["I worked on it with help from a LLM", "Code help request.pdf", "Code help request (1).pdf", "Code help request (2).pdf", "Code help request (3).pdf", "Code help request (4).pdf", "Code help request (5).pdf", "Code help request (6).pdf", "Code help request (7).pdf", "Review Code Requirements.pdf"],
+        planning=["Copy of CS1 Final Project 0_ Pick a Problem (1).docx", "Copy of CS1 Final Project 1_ Design (1).docx"],
         links=["https://github.com/ekoaskew-spec/CISC-Win-Simulator-"]
         )
 
