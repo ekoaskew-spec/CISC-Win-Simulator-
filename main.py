@@ -9,9 +9,9 @@ set_website_framed(False)
 set_site_information(
         author="Eko Askew",
         description="My site is a win simulator for soccer games. The user inputs information about the teams and the site outputs the simulated match",
-        sources="Who or what helped you build it.",
+        sources="I build it with help from an LLM.",
         planning="",
-        links=[]
+        links=[https://github.com/ekoaskew-spec/CISC-Win-Simulator-]
         )
 
 @dataclass
