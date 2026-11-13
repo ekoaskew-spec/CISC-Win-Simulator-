@@ -11,7 +11,7 @@ set_site_information(
         description="My site is a win simulator for soccer games. The user inputs information about the teams and the site outputs the simulated match",
         sources="I build it with help from an LLM.",
         planning="",
-        links=[https://github.com/ekoaskew-spec/CISC-Win-Simulator-]
+        links=["https://github.com/ekoaskew-spec/CISC-Win-Simulator-"]
         )
 
 @dataclass
@@ -122,6 +122,17 @@ def simulate_game(team1: Team, team2: Team) -> Team:
         return team2
 
 def make_score(winner: Team, loser: Team) -> list[int]:
+    """
+    This makes a score by assigning a random number from 1 to 5 and giving that to the winning teams score
+    and then randomly assigning a random number from 0 to n-1 for the lower teams score. n being the winning teams score
+
+    args:
+        winner(Team)
+        loser(Team)
+        
+    returns:
+        This returns a list of ints which would be the score of the match
+    """
     winner_goals = random.randint(1, 5)
     loser_goals = random.randint(0, winner_goals - 1)
     
@@ -137,6 +148,18 @@ def start_round_robin(state: State, teams: list[Team]) -> Page:
     ])
 
 def simulate_round_robin_match(home: Team, away: Team) -> SingleGame:
+    """
+This assigns a 20% chance of a draw in any round robin match.
+A random number gets drawn and if it is less than .2, the match is a draw.
+If it is not, the match will be simulated like normal.
+
+args:
+    home(Team)
+    away(Team)
+    
+Returns:
+    This returns an instance of the dataclass SingleGame
+    """
     draw_chance = random.random()
     
     if draw_chance < 0.2:
