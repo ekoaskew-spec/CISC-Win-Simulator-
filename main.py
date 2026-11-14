@@ -76,15 +76,47 @@ for league in LEAGUES:
 
     
 def find_league(name: str) -> RealLeague:
+    """
+    This function finds the real life league and matches it with the league that the user selected
+
+    args:
+        name(str)
+        
+    returns:
+        This returns an instance of the dataclass RealLeague which matches the string that the user enters
+    """
     for league in LEAGUES:
         if league.name == name:
             return league
 
 def make_team(name: str, scored: float, conceded: float, league_name: str) -> Team:
+    """
+    This takes in all the information about the team and gives an instance of Team which matches with that. 
+
+    args:
+        name(str)
+        scored(float)
+        conceded(float)
+        league_name(str)
+        
+    returns:
+        This returns an instance of Team which matches with all the information the user entered.
+    """
+    
     league = find_league(league_name)
     return Team(name, scored, conceded, 0, league)
 
 def find_overall_league_average() -> float:
+    """
+    This function calculates the average goals per game as a baseline 
+    so we can tell what leagues average goals are impressive
+    
+    args:
+        
+    returns:
+        This returns a float representing the overall average goals per game for all leagues as a baseline.
+    """
+    
     total = 0
     
     for league in LEAGUES:
@@ -93,6 +125,17 @@ def find_overall_league_average() -> float:
     return total / len(LEAGUES)
 
 def calculate_team_strength(team: Team, opponent: Team) -> float:
+    """
+    This function takes 2 Teams and calculates each teams strength based on the teams offensive stats
+    and the opponents defensive stats
+    
+    args:
+        team(Team)
+        opponent(Team)
+        
+    returns:
+        This returns a float which are each of the teams strengths.
+    """
     overall_average = find_overall_league_average()
     
     league_adjustment = (team.league.league_average_goals / overall_average)
@@ -104,6 +147,17 @@ def calculate_team_strength(team: Team, opponent: Team) -> float:
     return (attacking_strength + defending_strength) / 2
 
 def simulate_game(team1: Team, team2: Team) -> Team:
+    """
+    This function inputs the 2 teams and returns an instance of Team that is the winning team
+
+    args:
+        team1(Team)
+        team2(Team)
+        
+    returns:
+        This returns an instance of the dataclass Team which is the winning team from the match
+    """
+    
     team1_strength = calculate_team_strength(team1, team2)
     team2_strength = calculate_team_strength(team2, team1)
     
@@ -149,9 +203,9 @@ def start_round_robin(state: State, teams: list[Team]) -> Page:
 
 def simulate_round_robin_match(home: Team, away: Team) -> SingleGame:
     """
-This assigns a 20% chance of a draw in any round robin match.
-A random number gets drawn and if it is less than .2, the match is a draw.
-If it is not, the match will be simulated like normal.
+    This assigns a 20% chance of a draw in any round robin match.
+    A random number gets drawn and if it is less than .2, the match is a draw.
+    If it is not, the match will be simulated like normal.
 
 args:
     home(Team)
@@ -278,7 +332,16 @@ def sort_standings(standings: list[TeamStanding]) -> list[TeamStanding]:
     return standings
 
 def simulate_knockout_match(home: Team, away: Team) -> SingleGame:
+    """
+    This simulates a singular knockout game
     
+    args:
+        home(Team)
+        away(Team)
+        
+    returns:
+        This returns an instance of the dataclass SingleGame which is the game that was played in the knockout round. 
+    """
     winner = simulate_game(home,away)
    
     if winner == home:
@@ -310,17 +373,19 @@ def index(state: State) -> Page:
         "Welcome to the Win Simulator.\n",
         "This is the Home Page.\n",
         "This site will simulate soccer games of your choosing for you.\n",
-        "Click get started and you will be asked whether you want to do a Single Game, Round Robin, or Knockout Round.\n",
+        "Click get started and you will be asked whether you want to do a Single Game"
+        ", Round Robin, or Knockout Round.\n",
         "If you want to do a Single Game, you will enter in 2 teams and their statistics for the season.\n",
         "If you want to do a Round Robin, you will enter in 4-6 teams and their statistics for the season.\n",
-        "If you want to do a Knockout Round, you will either enter in 4 teams or 8 teams and the statistics for the season.\n",
+        "If you want to do a Knockout Round,"
+        " you will either enter in 4 teams or 8 teams and their statistics for the season.\n",
         "Good Luck!\n",
         Button("Get Started", "clicked_get_started"),
     ])
 
 
 @route
-def clicked_get_started(state: State) -> Page: 
+def clicked_get_started(state: State) -> Page:
     return Page(state, [
         "This is the Mode Selection Screen.\n",
         SelectBox("selected_mode", ["Single Game", "Round Robin", "Knockout Bracket"], ""),
@@ -329,6 +394,16 @@ def clicked_get_started(state: State) -> Page:
 
 @route
 def submitted_game_choice(state: State, selected_mode: str) -> Page:
+   """
+   This function lets the user pick what game mode they want to play
+
+    args:
+        state(State)
+        selected_mode(str)
+        
+    returns:
+        This returns a page. The page it returns depends on what game mode the user selects.
+   """
    if selected_mode == "Single Game":
        return Page(state, [
         Header("Single Game Mode"),
@@ -360,7 +435,8 @@ def submitted_game_choice(state: State, selected_mode: str) -> Page:
        return Page(state, [
         Header("Round Robin", 1),
         "On the next page, there will be 3 boxes per team.\n",
-        "You will enter in your team's name, average goals per game, and average goals conceded per game respectively into those 3 boxes.\n",
+        "You will enter in your team's name, average goals per game,"
+        " and average goals conceded per game respectively into those 3 boxes.\n",
         "You will do this for every team in your round robin.\n",
         
         "How many teams would you like to enter?",
@@ -419,6 +495,17 @@ def entered_single_game_teams(state: State,
 
 @route
 def round_robin_four(state: State) -> Page:
+    """
+    This function shows the page where the user enters the information
+    for the four team round robin
+    
+    args:
+        state(State)
+
+    returns:
+        This returns the page where the user enters the information
+        for the four team round robin
+    """
     
     return Page(state, [
         Header("Enter Your Four Teams", 1),
@@ -451,6 +538,17 @@ def round_robin_four(state: State) -> Page:
     
 @route
 def round_robin_five(state: State) -> Page:
+    """
+    This function shows the page where the user enters the information
+    for the five team round robin
+    
+    args:
+        state(State)
+
+    returns:
+        This returns the page where the user enters the information
+        for the five team round robin
+    """
     return Page(state, [
         Header("Enter Your Five Teams", 1),
         
@@ -489,6 +587,18 @@ def round_robin_five(state: State) -> Page:
 
 @route
 def round_robin_six(state: State) -> Page:
+    """
+    This function shows the page where the user enters the information
+    for the six team round robin
+    
+    args:
+        state(State)
+
+    returns:
+        This returns the page where the user enters the information
+        for the six team round robin
+    """
+    
     return Page(state, [
         Header("Enter Your Six Teams", 1),
         
@@ -552,6 +662,31 @@ def entered_round_robin_four(
     team4_conceded: float,
     team4_league: str
 ) -> Page:
+    """
+    This function creats the four teams for the four team round robin
+    using the information the user has given for the teams
+    
+    args:
+        state(State)
+        team1_name(str)
+        team1_scored(float)
+        team1_conceded(float)
+        team1_league(str)
+        team2_name(str)
+        team2_scored(float)
+        team2_conceded(float)
+        team2_league(str)
+        team3_name(str)
+        team3_scored(float)
+        team3_conceded(float)
+        team3_league(str)
+        team4_name(str)
+        team4_scored(float)
+        team4_conceded(float)
+        team4_league(str)
+    returns:
+        This returns the page to advance the round robin process.
+    """
 
     teams = []
 
