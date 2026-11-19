@@ -374,11 +374,11 @@ def index(state: State) -> Page:
         "This is the Home Page.\n",
         "This site will simulate soccer games of your choosing for you.\n",
         "Click get started and you will be asked whether you want to do a Single Game"
-        ", Round Robin, or Knockout Round.\n",
-        "If you want to do a Single Game, you will enter in 2 teams and their statistics for the season.\n",
-        "If you want to do a Round Robin, you will enter in 4-6 teams and their statistics for the season.\n",
+        ", Round Robin, or Knockout Round.\n\n",
+        "If you want to do a Single Game, you will enter in 2 teams and their goals per game and goals conceded per game for the season.\n\n",
+        "If you want to do a Round Robin, you will enter in 4-6 teams and their goals per game and goals conceded per game for the season.\n\n",
         "If you want to do a Knockout Round,"
-        " you will either enter in 4 teams or 8 teams and their statistics for the season.\n",
+        " you will either enter in 4 teams or 8 teams and their goals per game and goals conceded per game for the season.\n\n",
         "Good Luck!\n",
         Button("Get Started", "clicked_get_started"),
     ])
@@ -409,25 +409,44 @@ def submitted_game_choice(state: State, selected_mode: str) -> Page:
         Header("Single Game Mode"),
        "Enter information for both teams",
         
-        Header("Home Team",2),
-        "Team Name:",
-        TextBox("home_name",""),
-        "Average Goals Scored:",
-        TextBox("home_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("home_conceded","0"),
-        "League:",
-        SelectBox("home_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
         
-        Header("Away Team",2),
-        "Team Name:",
-        TextBox("away_name",""),
-        "Average Goals Scored:",
-        TextBox("away_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("away_conceded","0"),
-        "League:",
-        SelectBox("away_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Home Team", 2),
+
+Row("Team Name:", TextBox("home_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("home_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("home_conceded", "")
+),
+
+Row(
+    "League:",
+    SelectBox("home_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
+        
+Header("Away Team", 2),
+
+Row("Team Name:", TextBox("away_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("away_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("away_conceded", "")
+),
+
+Row(
+    "League:",
+    SelectBox("away_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
         Button("Submit Teams", "entered_single_game_teams")
        ])
@@ -437,6 +456,7 @@ def submitted_game_choice(state: State, selected_mode: str) -> Page:
         "On the next page, there will be 3 boxes per team.\n",
         "You will enter in your team's name, average goals per game,"
         " and average goals conceded per game respectively into those 3 boxes.\n",
+        "You will then select your teams league from the checkbox\n"
         "You will do this for every team in your round robin.\n",
         
         "How many teams would you like to enter?",
@@ -510,28 +530,81 @@ def round_robin_four(state: State) -> Page:
     return Page(state, [
         Header("Enter Your Four Teams", 1),
         
-        Header("Team 1", 2),
-        TextBox("team1_name", ""),
-        TextBox("team1_scored", "0"),
-        TextBox("team1_conceded", "0"),
-        SelectBox("team1_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
-        Header("Team 2", 2),
-        TextBox("team2_name", ""),
-        TextBox("team2_scored", "0"),
-        TextBox("team2_conceded", "0"),
-        SelectBox("team2_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 1", 2),
+
+Row("Team Name:", TextBox("team1_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team1_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team1_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team1_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 3", 2),
-        TextBox("team3_name", ""),
-        TextBox("team3_scored", "0"),
-        TextBox("team3_conceded", "0"),
-        SelectBox("team3_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 2", 2),
+
+Row("Team Name:", TextBox("team2_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team2_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team2_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team2_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 4", 2),
-        TextBox("team4_name", ""),
-        TextBox("team4_scored", "0"),
-        TextBox("team4_conceded", "0"),
-        SelectBox("team4_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 3", 2),
+       
+Row("Team Name:", TextBox("team3_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team3_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team3_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team3_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
+        
+Header("Team 4", 2),
+
+Row("Team Name:", TextBox("team4_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team4_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team4_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team4_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
         Button("Submit Teams", "entered_round_robin_four")
     ])
@@ -552,35 +625,100 @@ def round_robin_five(state: State) -> Page:
     return Page(state, [
         Header("Enter Your Five Teams", 1),
         
-        Header("Team 1", 2),
-        TextBox("team1_name", ""),
-        TextBox("team1_scored", "0"),
-        TextBox("team1_conceded", "0"),
-        SelectBox("team1_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 1", 2),
+
+Row("Team Name:", TextBox("team1_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team1_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team1_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team1_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 2", 2),
-        TextBox("team2_name", ""),
-        TextBox("team2_scored", "0"),
-        TextBox("team2_conceded", "0"),
-        SelectBox("team2_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 2", 2),
+
+Row("Team Name:", TextBox("team2_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team2_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team2_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team2_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 3", 2),
-        TextBox("team3_name", ""),
-        TextBox("team3_scored", "0"),
-        TextBox("team3_conceded", "0"),
-        SelectBox("team3_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 3", 2),
+       
+Row("Team Name:", TextBox("team3_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team3_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team3_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team3_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 4", 2),
-        TextBox("team4_name", ""),
-        TextBox("team4_scored", "0"),
-        TextBox("team4_conceded", "0"),
-        SelectBox("team4_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 4", 2),
+
+Row("Team Name:", TextBox("team4_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team4_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team4_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team4_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 5", 2),
-        TextBox("team5_name", ""),
-        TextBox("team5_scored", "0"),
-        TextBox("team5_conceded", "0"),
-        SelectBox("team5_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 5", 2),
+       
+Row("Team Name:", TextBox("team5_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team5_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team5_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team5_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
         Button("Submit Teams", "entered_round_robin_five")
     ])
@@ -602,41 +740,119 @@ def round_robin_six(state: State) -> Page:
     return Page(state, [
         Header("Enter Your Six Teams", 1),
         
-        Header("Team 1", 2),
-        TextBox("team1_name", ""),
-        TextBox("team1_scored", "0"),
-        TextBox("team1_conceded", "0"),
-        SelectBox("team1_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 1", 2),
+
+Row("Team Name:", TextBox("team1_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team1_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team1_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team1_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 2", 2),
-        TextBox("team2_name", ""),
-        TextBox("team2_scored", "0"),
-        TextBox("team2_conceded", "0"),
-        SelectBox("team2_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 2", 2),
+
+Row("Team Name:", TextBox("team2_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team2_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team2_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team2_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 3", 2),
-        TextBox("team3_name", ""),
-        TextBox("team3_scored", "0"),
-        TextBox("team3_conceded", "0"),
-        SelectBox("team3_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 3", 2),
+       
+Row("Team Name:", TextBox("team3_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team3_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team3_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team3_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 4", 2),
-        TextBox("team4_name", ""),
-        TextBox("team4_scored", "0"),
-        TextBox("team4_conceded", "0"),
-        SelectBox("team4_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 4", 2),
+
+Row("Team Name:", TextBox("team4_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team4_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team4_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team4_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 5", 2),
-        TextBox("team5_name", ""),
-        TextBox("team5_scored", "0"),
-        TextBox("team5_conceded", "0"),
-        SelectBox("team5_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 5", 2),
+       
+Row("Team Name:", TextBox("team5_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team5_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team5_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team5_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 6", 2),
-        TextBox("team6_name", ""),
-        TextBox("team6_scored", "0"),
-        TextBox("team6_conceded", "0"),
-        SelectBox("team6_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 6", 2),
+       
+Row("Team Name:", TextBox("team6_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team6_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team6_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team6_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
         Button("Submit Teams", "entered_round_robin_six")
     ])
@@ -817,50 +1033,86 @@ def entered_round_robin_teams(state: State) -> Page:
 def knockout_four(state: State) -> Page:
     return Page(state, [
         Header("Enter 4 Teams", 1),
-        "You will enter teams next",
+        "You will enter teams next\n",
         
         "Would you like to display match scores?",
     CheckBox("show_scores", True),
         
         Header("Team 1", 2),
-        "Team Name",
-        TextBox("team1_name", ""),
-        "Average Goals Scored",
-        TextBox("team1_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team1_conceded", "0"),
-        "Real League",
-        SelectBox("team1_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+
+Row("Team Name:", TextBox("team1_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team1_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team1_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team1_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
+
+Header("Team 2", 2),
         
-        Header("Team 2", 2),
-        "Team Name",
-        TextBox("team2_name", ""),
-        "Average Goals Scored",
-        TextBox("team2_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team2_conceded", "0"),
-        "Real League",
-        SelectBox("team2_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Row("Team Name:", TextBox("team2_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team2_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team2_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team2_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 3", 2),
-        "Team Name",
-        TextBox("team3_name", ""),
-        "Average Goals Scored",
-        TextBox("team3_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team3_conceded", "0"),
-        "Real League",
-        SelectBox("team3_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 3", 2),
         
-        Header("Team 4", 2),
-        "Team Name",
-        TextBox("team4_name", ""),
-        "Average Goals Scored",
-        TextBox("team4_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team4_conceded", "0"),
-        "Real League",
-        SelectBox("team4_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Row("Team Name:", TextBox("team3_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team3_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team3_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team3_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
+        
+Header("Team 4", 2),
+        
+Row("Team Name:", TextBox("team4_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team4_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team4_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team4_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
         Button("Submit Teams", "entered_knockout_four")
     ])
@@ -870,90 +1122,162 @@ def knockout_four(state: State) -> Page:
 def knockout_eight(state: State) -> Page:
     return Page(state, [
         Header("Enter 8 Teams", 1),
-        "You will enter teams next",
+        "You will enter teams next\n",
         
         "Would you like to display match scores?",
     CheckBox("show_scores", True),
         
-         Header("Team 1", 2),
-        "Team Name",
-        TextBox("team1_name", ""),
-        "Average Goals Scored",
-        TextBox("team1_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team1_conceded", "0"),
-        "Real League",
-        SelectBox("team1_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 1", 2),
+
+Row("Team Name:", TextBox("team1_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team1_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team1_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team1_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
+
+Header("Team 2", 2),
         
-        Header("Team 2", 2),
-        "Team Name",
-        TextBox("team2_name", ""),
-        "Average Goals Scored",
-        TextBox("team2_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team2_conceded", "0"),
-        "Real League",
-        SelectBox("team2_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Row("Team Name:", TextBox("team2_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team2_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team2_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team2_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 3", 2),
-        "Team Name",
-        TextBox("team3_name", ""),
-        "Average Goals Scored",
-        TextBox("team3_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team3_conceded", "0"),
-        "Real League",
-        SelectBox("team3_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 3", 2),
         
-        Header("Team 4", 2),
-        "Team Name",
-        TextBox("team4_name", ""),
-        "Average Goals Scored",
-        TextBox("team4_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team4_conceded", "0"),
-        "Real League",
-        SelectBox("team4_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Row("Team Name:", TextBox("team3_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team3_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team3_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team3_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 5", 2),
-        "Team Name",
-        TextBox("team5_name", ""),
-        "Average Goals Scored",
-        TextBox("team5_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team5_conceded", "0"),
-        "Real League",
-        SelectBox("team5_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 4", 2),
         
-        Header("Team 6", 2),
-        "Team Name",
-        TextBox("team6_name", ""),
-        "Average Goals Scored",
-        TextBox("team6_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team6_conceded", "0"),
-        "Real League",
-        SelectBox("team6_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Row("Team Name:", TextBox("team4_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team4_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team4_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team4_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
-        Header("Team 7", 2),
-        "Team Name",
-        TextBox("team7_name", ""),
-        "Average Goals Scored",
-        TextBox("team7_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team7_conceded", "0"),
-        "Real League",
-        SelectBox("team7_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Header("Team 5", 2),
         
-        Header("Team 8", 2),
-        "Team Name",
-        TextBox("team8_name", ""),
-        "Average Goals Scored",
-        TextBox("team8_scored", "0"),
-        "Average Goals Conceded",
-        TextBox("team8_conceded", "0"),
-        "Real League",
-        SelectBox("team8_league", LEAGUE_NAMES, LEAGUE_NAMES[0]),
+Row("Team Name:", TextBox("team5_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team5_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team5_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team5_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
+        
+Header("Team 6", 2),
+        
+Row("Team Name:", TextBox("team6_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team6_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team6_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team6_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
+        
+Header("Team 7", 2),
+        
+Row("Team Name:", TextBox("team7_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team7_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team7_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team7_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
+        
+Header("Team 8", 2),
+        
+Row("Team Name:", TextBox("team8_name", "")),
+
+Row(
+    "Average Goals Scored:",
+    TextBox("team8_scored", "")
+),
+
+Row(
+    "Average Goals Conceded:",
+    TextBox("team8_conceded", "")
+),
+
+Row(
+    "Real League:",
+    SelectBox("team8_league", LEAGUE_NAMES, LEAGUE_NAMES[0])
+),
         
         Button("Submit Teams", "entered_knockout_eight")
     ])
